@@ -14,13 +14,13 @@ company_name VARCHAR
 -- This allows you to add a company in companie table with its own paramaters listed below Ive made some generated UUIDS below for use in for create,post,deleting
 
 INSERT INTO companies (company_id, company_name)
-VALUES ('f6f40c9d-eaba-43f7-8732-0a7feee6d36a', 'John deere');
+VALUES ('f6f40c9d-eaba-43f7-8732-0a7feee6d36a', 'coke');
 
 -- allows updates for company table
 
 UPDATE companies
-SET company_name = 'Pepsi'
-WHERE company_id = '0d206fdd-b967-4c99-a885-4e0ffe9de739';
+SET company_name = 'coke'
+WHERE company_id = 'f6f40c9d-eaba-43f7-8732-0a7feee6d36a';
 
 -- This adds a foreign key for the company_id column of the products table, referencing the company_id column in the companies table.
 
@@ -35,7 +35,7 @@ ALTER TABLE products(
 
 CREATE TABLE products (
   product_id SERIAL,
-  company_id INTEGER,
+  company_id UUID,
   company_name VARCHAR(255),
   price INTEGER,
   description VARCHAR(255),
@@ -46,8 +46,8 @@ CREATE TABLE products (
 
 -- this allows a single record into products
 
-INSERT INTO products (company_id, company_name, description, active)
-VALUES (1,'coke' ,36.00, 'bulk soda', true);
+INSERT INTO products (company_id, company_name, price, description, active)
+VALUES ('f6f40c9d-eaba-43f7-8732-0a7feee6d36a', 'coke', 36.00, 'bulk soda', true);
 
 -- updates products table
 UPDATE products
@@ -62,15 +62,21 @@ INSERT INTO products (
   price,
   description,
   active
-)VALUES(144bb55f-f22e-4516-b257-b0dce988d59a,250,microsoft,500,laptop)
+)VALUES(144bb55f-f22e-4516-b257-b0dce988d59a,250,coke,500,laptop)
 
 -- this creates a products_categories_xref table
 
 CREATE TABLE products_categories_xref (
- product_id SERIAL
- category_id SERIAL
- FOREIGN KEY (product_id)
- FOREIGN KEY (category_id)
+  product_id SERIAL,
+  category_id SERIAL,
+  FOREIGN KEY (product_id) REFERENCES products(product_id),
+  FOREIGN KEY (category_id) REFERENCES categories(category_id)
+);
+
+-- this creates a table for categories
+CREATE TABLE categories (
+  category_id SERIAL PRIMARY KEY,
+  category_name VARCHAR(255) NOT NULL
 );
 
 -- creates a record for products_categories_xref
