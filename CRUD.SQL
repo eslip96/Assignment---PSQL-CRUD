@@ -24,12 +24,8 @@ WHERE company_id = 'f6f40c9d-eaba-43f7-8732-0a7feee6d36a';
 
 -- This adds a foreign key for the company_id column of the products table, referencing the company_id column in the companies table.
 
-ALTER TABLE products(
-  ADD CONSTRAINT fk_company_id,
-  FOREIGN KEY(company_id)
-  REFERENCES
-  companies(company_id)
-)
+ALTER TABLE products
+ADD CONSTRAINT fk_company_id FOREIGN KEY (company_id) REFERENCES companies(company_id);
 
 -- this creates a product table 
 
@@ -52,7 +48,7 @@ VALUES ('f6f40c9d-eaba-43f7-8732-0a7feee6d36a', 'coke', 36.00, 'bulk soda', true
 -- updates products table
 UPDATE products
 SET price = 1200, active = false
-WHERE product_id = 'product id';
+WHERE product_id = '1';
 
 -- this is inserting a base laptop for products as some kinda demo-data for product tables so heres something there
 
@@ -92,21 +88,14 @@ SET field_name = 'new value'
 
 -- this is my foreign key connecting products xref and products
 
-ALTER TABLE products(
-  ADD CONSTRAINT fk_product_id,
-  FOREIGN KEY(product_id)
-  REFERENCES
-  companies(product_id)
-)
+ALTER TABLE products
+ADD CONSTRAINT fk_product_id FOREIGN KEY (product_id) REFERENCES products(product_id);
+
 
 -- another forign key for products xref and categories
 
-ALTER TABLE categories(
-  ADD CONSTRAINT fk_category_id,
-  FOREIGN KEY(category_id)
-  REFERENCES
-  companies(category_id)
-)
+ALTER TABLE categories
+ADD CONSTRAINT fk_category_id FOREIGN KEY (category_id) REFERENCES companies(category_id);
 
 -- This adds a record to the categories page
 
